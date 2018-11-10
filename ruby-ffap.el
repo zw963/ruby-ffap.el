@@ -33,8 +33,9 @@
     gem)))
 
 (eval-after-load "ffap"
-  '(push '(enh-ruby-mode . ruby-module-path) ffap-alist)
-  )
+  '(push '(enh-ruby-mode . ruby-ffap-gem-path) ffap-alist))
+(eval-after-load "ffap"
+  '(push '(ruby-mode . ruby-ffap-gem-path) ffap-alist))
 
 (provide 'ruby-ffap)
 
