@@ -26,7 +26,7 @@
   "Decide current point is inside a require expression."
   (and
    (fourth (syntax-ppss))
-   (looking-back "require.*")
+   (looking-back "\\b\\(require\\|gem\\)\\b.*")
    ))
 
 (defun ruby-ffap-gem-path(gem)
