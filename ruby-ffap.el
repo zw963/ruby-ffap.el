@@ -22,15 +22,23 @@
 
 (defvar ruby-ffap-program-name "bundle exec ruby")
 
+(defun ruby-ffap-is-require-p ()
+  "Decide current point is inside a require expression."
+  (and
+   (fourth (syntax-ppss))
+   (looking-back "require.*")
+   ))
+
 (defun ruby-ffap-gem-path(gem)
   "Find the exact GEM path in the bundler, use RVM."
-  (let ((rvm-verbose nil)) (rvm-activate-corresponding-ruby))
-  (shell-command-to-string
-   (concat
-    ruby-ffap-program-name
-    " -e "
-    "\"ret='()'; \\$LOAD_PATH.each {|p| x=p+'/'+ARGV[0].sub('.rb', '').tr('-','/')+'.rb'; ret=File.expand_path(x) if File.exists?(x); }; printf ret\" "
-    gem)))
+  (when (ruby-ffap-is-require-p)
+    (let ((rvm-verbose nil)) (rvm-activate-corresponding-ruby))
+    (shell-command-to-string
+     (concat
+      ruby-ffap-program-name
+      " -e "
+      "\"ret='()'; \\$LOAD_PATH.each {|p| x=p+'/'+ARGV[0].sub('.rb', '').tr('-','/')+'.rb'; ret=File.expand_path(x) if File.exists?(x); }; printf ret\" "
+      gem))))
 
 (eval-after-load "ffap"
   '(push '(enh-ruby-mode . ruby-ffap-gem-path) ffap-alist))
