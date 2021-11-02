@@ -1,8 +1,8 @@
 ;;; ruby-ffap.el --- emacs lisp mode like FFAP(find file at point) for ruby.
 
 ;; Author: Billy.Zheng
-;; Version: 0.1.0
-;; Created: 2018-11-11
+;; Version: 0.2.0
+;; Created: 2021-11-03
 ;; Keywords: files, hypermedia, matching, mouse, convenience
 ;; Package-Requires: ((emacs "24.1"))
 
